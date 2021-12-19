@@ -1,0 +1,105 @@
+
+#include <SPI.h>
+#include "Ucglib.h"
+
+Ucglib_SSD1351_18x128x128_SWSPI ucg(/*sclk=*/ 13, /*data=*/ 11, /*cd=*/ 9 , /*cs=*/ 10, /*reset=*/ 8);
+
+void setup(void){
+  delay(1000);
+  ucg.begin(UCG_FONT_MODE_TRANSPARENT);
+  ucg.clearScreen();
+}
+
+void loop(void){
+  ucg.setRotate90();
+    
+  ucg.setColor(255, 255, 0);
+
+  
+  ucg.setFont(ucg_font_symb14_tf);
+  ucg.setPrintPos(10,15);
+  ucg.print("lanius");
+
+  ucg.setPrintPos(10,29);
+  ucg.print("Noodles");
+
+  // Outter border
+  ucg.setColor(255, 255, 0);
+  ucg.drawLine(2, 2, 2, 124);
+  ucg.drawLine(2, 124,124,124);
+  ucg.drawLine(124,124,124,2);
+  ucg.drawLine(124,2,80,2);
+
+  drawNoodleBowl(95,12);
+
+  // Horizontal line under header
+  ucg.drawLine(20,37,104,37);
+  
+  ucg.setColor(255, 255, 255);
+  ucg.setFont(ucg_font_5x7_tf);
+  ucg.setPrintPos(10,50);
+  ucg.print("Pancakes ...... 10 cr");
+  ucg.setPrintPos(10,60);
+  ucg.print("Piece o' Pete . 13 cr");
+  ucg.setPrintPos(10,70);
+  ucg.print("Humancakes .... 24 cr");
+  ucg.setPrintPos(10,80);
+  ucg.print("Shrooms ........ 9 cr");
+  ucg.setPrintPos(10,90);
+  ucg.print("Safe Shrooms .. 20 cr");
+  ucg.setPrintPos(10,100);
+  ucg.print("Newdles ........ 5 cr");
+  ucg.setPrintPos(10,110);
+  ucg.print("The Special ... 30 cr");
+
+  
+
+
+  delay(500);  
+}
+
+
+  int xNoodle;
+  int yNoodle;
+
+  void drawNoodleBowl(int x, int y) {
+
+    xNoodle = x;
+    yNoodle = y;
+
+    drawHLine(1,15,16);
+    drawHLine(2,2,6);
+    drawHLine(2,8,16);
+    drawHLine(3,2,9);
+    drawHLine(4,0,6);
+    drawHLine(5,0,16);
+    drawHLine(6,5,7);
+
+    drawVLine(2,5,8);
+    drawVLine(4,5,8);
+    
+    drawHLine(9,0,16);
+    drawHLine(10,0,16);
+
+
+    drawHLine(11,1,16);
+    drawHLine(12,1,16);
+    
+    drawHLine(13,1,16);
+    drawHLine(14,2,15);
+    drawHLine(15,4,13);
+  }
+  
+  void drawHLine(int y,int x1, int x2) {
+    
+    ucg.drawLine(xNoodle + x1, yNoodle + y,xNoodle + x2, yNoodle + y);
+  }
+
+  void drawVLine(int x,int y1, int y2) {
+    
+    ucg.drawLine(xNoodle + x, yNoodle + y1,xNoodle + x, yNoodle + y2);
+  }
+  void drawOffsetPixel(int x,int y) {
+    
+    ucg.drawPixel(xNoodle + x, yNoodle + y);
+  }
